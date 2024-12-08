@@ -2,8 +2,21 @@ import BookList from './components/BookList/BookList'
 import BookForm from './components/BookForm/BookForm'
 import Filter from './components/Filter/Filter'
 import './App.css'
+import { useDispatch, useSelector } from 'react-redux'
+import { clearError, selectErrorMessage } from './redux/slices/errorSlice'
+import { useEffect } from 'react'
 
 function App() {
+  const errorMessage = useSelector(selectErrorMessage)
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    if (errorMessage) {
+      alert(errorMessage)
+      dispatch(clearError())
+    }
+  }, [errorMessage, dispatch])
+
   return (
     <div className="app">
       <header className="app-header">
